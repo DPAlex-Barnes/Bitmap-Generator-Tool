@@ -175,9 +175,10 @@ namespace BitmapGeneratorTool
         private byte[] CreateBitmap()
         {
             BitmapCreator bitmapCreator = new BitmapCreator(imageWidth, imageHeight);
-            
+
             return bitmapCreator.GenerateEightBitVerticalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
-            
+            //return bitmapCreator.GenerateTenBitVerticalGradient(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, 255, 255);
+
         }
 
     }
