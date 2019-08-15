@@ -35,7 +35,7 @@ namespace BitmapGeneratorTool
             // offset is the total byte size of the Bitmap Header and the BitmapInfoHeader
             int offset = 54;
 
-            for(int i = 0; i < ImageHeight; i++)
+            for (int i = 0; i < ImageHeight; i++)
             {
                 Array.Copy(line, 0, bitmapBytes, offset, line.Length);
                 offset += line.Length;
@@ -47,13 +47,15 @@ namespace BitmapGeneratorTool
 
         public byte[] GenerateTenBitVerticalGradient(int redLeft, int redRight, int greenLeft, int greenRight, int blueLeft, int blueRight, int alphaLeft, int alphaRight)
         {
-            int padding = ImageWidth % 4;
+            int padding = 0; //ImageWidth % 4;
             byte[] bitmapBytes = ThirtyTwoBPPBitmapTemplate();
             int dataByteSize = 4;
 
             byte[] line = GetLine(ImageWidth, dataByteSize, padding, redLeft, redRight, greenLeft, greenRight, blueLeft, blueRight);
 
             int offset = 122;
+
+            //Array.Copy(line, 0, bitmapBytes, offset, line.Length);
 
             for (int i = 0; i < ImageHeight; i++)
             {
@@ -87,12 +89,16 @@ namespace BitmapGeneratorTool
 
         private byte[] ThirtyTwoBPPBitmapTemplate()
         {
-            byte[] dibheader = GenerateThirtyTwoBitHeader(ImageWidth, ImageHeight);
-            byte[] bitmapHeader = GenerateBitmapHeader(dibheader.Length);
+            byte[] dibHeader = GenerateThirtyTwoBitHeader(ImageWidth, ImageHeight);
+            byte[] bitmapHeader = GenerateBitmapHeader(dibHeader.Length);
 
-            int totalHeaderSize = dibheader.Length + bitmapHeader.Length;
+            int totalHeaderSize = dibHeader.Length + bitmapHeader.Length;
 
             byte[] completedBitmapArray = new byte[totalHeaderSize + ((ImageWidth * ImageHeight)*4)];
+
+            Array.Copy(bitmapHeader, 0, completedBitmapArray, 0, bitmapHeader.Length);
+
+            Array.Copy(dibHeader, 0, completedBitmapArray, bitmapHeader.Length, dibHeader.Length);
 
             return completedBitmapArray;
         }
@@ -166,10 +172,10 @@ namespace BitmapGeneratorTool
         {
             byte[] dibHeader = new byte[108];
 
-            byte[] redBitMask = {0x00, 0xFF, 0x00, 0x00 };
-            byte[] greenBitMask = { 0x00, 0x00, 0xFF, 0x00 };
-            byte[] blueBitMask = { 0x00, 0x00, 0x00, 0xFF };
-            byte[] alphaBitMask = { 0xFF, 0x00, 0x00, 0x00 };
+            byte[] redBitMask = { };// red 256{0x00, 0x00, 0xFF, 0x00 };
+            byte[] greenBitMask = { }; // green 256{ 0x00, 0xFF, 0x00, 0x00 };
+            byte[] blueBitMask = { };// blue 256{ 0xFF, 0x00, 0x00, 0x00 };
+            byte[] alphaBitMask = { };// alpha 256{ 0x00, 0x00, 0x00, 0xFF };
 
             // Number of bytes in DIB header
             Array.Copy(BitConverter.GetBytes(dibHeader.Length), 0, dibHeader, 0, 4);
