@@ -50,7 +50,7 @@
             this.Controls.Add(this.GeneratedBitmapPictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GeneratedBitmapForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "GeneratedBitmapForm";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GeneratedBitmapForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.GeneratedBitmapPictureBox)).EndInit();

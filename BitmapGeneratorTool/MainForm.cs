@@ -21,7 +21,9 @@ namespace BitmapGeneratorTool
         int greenHigh;
         int blueLow;
         int blueHigh;
-
+        int bitsPerPixel = 24;
+        Screen[] screens;
+        List<GeneratedBitmapForm> forms;
 
         public mainForm()
         {
@@ -29,7 +31,11 @@ namespace BitmapGeneratorTool
 
             widthValueTextBox.Text = Screen.PrimaryScreen.Bounds.Width.ToString();
             heightValueTextBox.Text = Screen.PrimaryScreen.Bounds.Height.ToString();
-            
+            screens = Screen.AllScreens;
+            bppComboBox.DataSource = screens;
+            //bppComboBox.Items.Add(24);
+            //bppComboBox.Items.Add(32);
+
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
@@ -57,11 +63,19 @@ namespace BitmapGeneratorTool
                 //}
                 //else
                 //{
-                    byte[] bitmapBytes = CreateBitmap();
-                    Image picture = GetBitmap(bitmapBytes);
-                    GeneratedBitmapForm bitmapWindow = new GeneratedBitmapForm(picture, imageWidth, imageHeight);
+                byte[] bitmapBytes = CreateBitmap(bitsPerPixel);
+                Image picture = GetBitmap(bitmapBytes);
+                forms = new List<GeneratedBitmapForm>();
 
-                    bitmapWindow.ShowDialog();
+                for (int i = 0; i < screens.Length; i++)
+                {
+                    forms.Add(new GeneratedBitmapForm(picture, imageWidth, imageHeight));
+                    //GeneratedBitmapForm bitmapWindow = new GeneratedBitmapForm(picture, imageWidth, imageHeight);
+                    forms[i].Location = screens[i].Bounds.Location;
+                    forms[i].Show();
+                    Console.WriteLine($"Form: {forms[i].Location} ");
+                }
+                    
                 //}
             }
         }
@@ -70,13 +84,15 @@ namespace BitmapGeneratorTool
         {
             if (ValidateInput())
             {
-                byte[] bitmapBytes = CreateBitmap();
+                byte[] bitmapBytes = CreateBitmap(bitsPerPixel);
 
                 SaveFileDialog saveFile = new SaveFileDialog();
                 saveFile.Filter += "Bitmap Files(*.bmp) | *.bmp | All files(*.*) | *.* "; 
-                saveFile.ShowDialog();
+                if(saveFile.ShowDialog() == DialogResult.OK)
+                {
 
-                File.WriteAllBytes(saveFile.FileName, bitmapBytes);
+                    File.WriteAllBytes(saveFile.FileName, bitmapBytes);
+                }
             }
         }
 
@@ -172,14 +188,28 @@ namespace BitmapGeneratorTool
             }
         }
 
-        private byte[] CreateBitmap()
+        private byte[] CreateBitmap(int bits)
         {
             BitmapCreator bitmapCreator = new BitmapCreator(imageWidth, imageHeight);
 
-            //return bitmapCreator.GenerateEightBitVerticalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
-            return bitmapCreator.GenerateTenBitVerticalGradient(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, 255, 255);
+            if(bits == 24)
+            {
+                return bitmapCreator.GenerateEightBitVerticalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
 
+            }
+            else if (bits == 32)
+            {
+                return bitmapCreator.GenerateTenBitVerticalGradient(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, 255, 255);
+            }
+            else
+            {
+                return new byte[256];
+            }
         }
 
+        private void bppComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //    bitsPerPixel = int.Parse(bppComboBox.SelectedText);
+        }
     }
 }

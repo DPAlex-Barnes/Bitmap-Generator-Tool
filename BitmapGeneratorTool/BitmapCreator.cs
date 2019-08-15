@@ -172,10 +172,10 @@ namespace BitmapGeneratorTool
         {
             byte[] dibHeader = new byte[108];
 
-            byte[] redBitMask = { };// red 256{0x00, 0x00, 0xFF, 0x00 };
-            byte[] greenBitMask = { }; // green 256{ 0x00, 0xFF, 0x00, 0x00 };
-            byte[] blueBitMask = { };// blue 256{ 0xFF, 0x00, 0x00, 0x00 };
-            byte[] alphaBitMask = { };// alpha 256{ 0x00, 0x00, 0x00, 0xFF };
+            byte[] redBitMask = {0x00, 0x00, 0xFF, 0x00 };
+            byte[] greenBitMask = { 0x00, 0xFF, 0x00, 0x00 };
+            byte[] blueBitMask = { 0xFF, 0x00, 0x00, 0x00 };
+            byte[] alphaBitMask = { 0x00, 0x00, 0x00, 0xFF };
 
             // Number of bytes in DIB header
             Array.Copy(BitConverter.GetBytes(dibHeader.Length), 0, dibHeader, 0, 4);
@@ -190,7 +190,6 @@ namespace BitmapGeneratorTool
             // BI_BITFIELDS, no pixel array compression used.
             Array.Copy(BitConverter.GetBytes(3), 0, dibHeader, 16, 4);
             // Size of Raw Bitmap data including padding
-            // Array.Copy(BitConverter.GetBytes((width*height)*4), 0, dibHeader, 18, 4);
             Array.Copy(BitConverter.GetBytes(16), 0, dibHeader, 20, 4);
             //Print Resolution Horizontal
             Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, 24, 4);
@@ -211,7 +210,7 @@ namespace BitmapGeneratorTool
             // LCS_WINDOWS_COLOUR_SPACE
             Array.Copy(new byte[] {0x20, 0x6e, 0x69, 0x57 }, 0, dibHeader, 56, 4);
             // Colourspace endpoints (NOT USED = EMPTY)
-            //Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x00 }, 0, dibHeader, 60, 36);
+            Array.Copy(new byte[36], 0, dibHeader, 60, 36);
             // UNUSED
             Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x00 }, 0, dibHeader, 96, 4);
             // UNUSED
@@ -315,6 +314,8 @@ namespace BitmapGeneratorTool
             int redSteps = GetSteps(ImageWidth, redLeft, redRight);
             int greenSteps = GetSteps(ImageWidth, greenLeft, greenRight);
             int blueSteps = GetSteps(ImageWidth, blueLeft, blueRight);
+            int alphaSteps = GetSteps(ImageWidth, alphaLeft, alphaRight);
+
 
             for (int i = 0; i < line.Length - dataByteSize; i += dataByteSize)
             {
@@ -342,6 +343,14 @@ namespace BitmapGeneratorTool
                 else
                 {
                     blue = DecrementColour(redSteps, count, blueRight, blue);
+                }
+                if (alpha < alphaRight)
+                {
+                    alpha = IncrementColour(alphaSteps, count, alpha, alphaRight);
+                }
+                else
+                {
+                    alpha = DecrementColour(alphaSteps, count, alphaRight, alpha);
                 }
 
                 byte[] colour = { (byte)blue, (byte)green, (byte)red, (byte)alpha };

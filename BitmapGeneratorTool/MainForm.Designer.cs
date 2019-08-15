@@ -49,6 +49,7 @@
             this.HeaderLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flipColoursButton = new System.Windows.Forms.Button();
+            this.bppComboBox = new System.Windows.Forms.ComboBox();
             this.ResolutionGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -301,12 +302,22 @@
             this.flipColoursButton.UseVisualStyleBackColor = true;
             this.flipColoursButton.Click += new System.EventHandler(this.flipColoursButton_Click);
             // 
+            // bppComboBox
+            // 
+            this.bppComboBox.FormattingEnabled = true;
+            this.bppComboBox.Location = new System.Drawing.Point(453, 29);
+            this.bppComboBox.Name = "bppComboBox";
+            this.bppComboBox.Size = new System.Drawing.Size(342, 38);
+            this.bppComboBox.TabIndex = 17;
+            this.bppComboBox.SelectedIndexChanged += new System.EventHandler(this.bppComboBox_SelectedIndexChanged);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(841, 405);
+            this.Controls.Add(this.bppComboBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.HeaderLabel);
             this.Controls.Add(this.ResetButton);
@@ -349,6 +360,7 @@
         private System.Windows.Forms.Label HeaderLabel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button flipColoursButton;
+        private System.Windows.Forms.ComboBox bppComboBox;
     }
 }
 
