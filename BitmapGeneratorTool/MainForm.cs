@@ -24,6 +24,8 @@ namespace BitmapGeneratorTool
         int bitsPerPixel = 24;
         Screen[] screens;
         List<GeneratedBitmapForm> forms;
+        List<byte[]> images = new List<byte[]>();
+        List<PictureBox> pictureboxes = new List<PictureBox>();
 
         public mainForm()
         {
@@ -32,7 +34,12 @@ namespace BitmapGeneratorTool
             widthValueTextBox.Text = Screen.PrimaryScreen.Bounds.Width.ToString();
             heightValueTextBox.Text = Screen.PrimaryScreen.Bounds.Height.ToString();
             screens = Screen.AllScreens;
-            bppComboBox.DataSource = screens;
+            pictureboxes.Add(ImportedImageOnePictureBox);
+            pictureboxes.Add(ImportedImageTwoPictureBox);
+            pictureboxes.Add(ImportedImageThreePictureBox);
+            pictureboxes.Add(ImportedImageFourPictureBox);
+            pictureboxes.Add(ImportedImageFivePictureBox);
+            pictureboxes.Add(ImportedImageSixPictureBox);
             //bppComboBox.Items.Add(24);
             //bppComboBox.Items.Add(32);
 
@@ -40,6 +47,11 @@ namespace BitmapGeneratorTool
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
+            images = new List<byte[]>();
+            foreach(PictureBox picture in pictureboxes)
+            {
+                picture.Image = null;
+            }
             widthValueTextBox.Text = Screen.PrimaryScreen.Bounds.Width.ToString();
             heightValueTextBox.Text = Screen.PrimaryScreen.Bounds.Height.ToString();
             redLowTextBox.Text = "0";
@@ -48,35 +60,46 @@ namespace BitmapGeneratorTool
             greenHighTextBox.Text = "255";
             blueLowTextBox.Text = "0";
             blueHighTextBox.Text = "255";
+            ImportedImageGroupBox.Visible = false;
+            setColourGroupBox.Visible = true;
             
         }
 
         private void DisplayButton_Click(object sender, EventArgs e)
         {
-            if (ValidateInput())
+            if (setColourGroupBox.Visible)
             {
-                ParseTextBoxes();
+                if (ValidateInput())
+                {
+                    ParseTextBoxes();
+                    
+                    byte[] bitmapBytes = CreateBitmap(bitsPerPixel);
+                    Image picture = GetImage(bitmapBytes);
+                    forms = new List<GeneratedBitmapForm>();
 
-                //if (imageWidth % 4 > 0 || imageHeight % 4 > 0)
-                //{
-                //    MessageBox.Show("Width or Height not divisable by 4");
-                //}
-                //else
-                //{
-                byte[] bitmapBytes = CreateBitmap(bitsPerPixel);
-                Image picture = GetBitmap(bitmapBytes);
+                    for (int i = 0; i < screens.Length; i++)
+                    {
+                        forms.Add(new GeneratedBitmapForm(picture, imageWidth, imageHeight));
+                        //GeneratedBitmapForm bitmapWindow = new GeneratedBitmapForm(picture, imageWidth, imageHeight);
+                        forms[i].Location = screens[i].Bounds.Location;
+                        forms[i].Show();
+                        Console.WriteLine($"Form: {forms[i].Location} ");
+                    }
+                }
+            }
+            else if (ImportedImageGroupBox.Visible)
+            {
                 forms = new List<GeneratedBitmapForm>();
 
-                for (int i = 0; i < screens.Length; i++)
+                for (int i = 0; i < images.Count; i++)
                 {
-                    forms.Add(new GeneratedBitmapForm(picture, imageWidth, imageHeight));
+                    Image picture = GetImage(images[i]);
+                    forms.Add(new GeneratedBitmapForm(picture, picture.Width, picture.Height));
                     //GeneratedBitmapForm bitmapWindow = new GeneratedBitmapForm(picture, imageWidth, imageHeight);
                     forms[i].Location = screens[i].Bounds.Location;
                     forms[i].Show();
                     Console.WriteLine($"Form: {forms[i].Location} ");
                 }
-                    
-                //}
             }
         }
 
@@ -85,15 +108,43 @@ namespace BitmapGeneratorTool
             if (ValidateInput())
             {
                 byte[] bitmapBytes = CreateBitmap(bitsPerPixel);
-
-                SaveFileDialog saveFile = new SaveFileDialog();
+                               SaveFileDialog saveFile = new SaveFileDialog();
                 saveFile.Filter += "Bitmap Files(*.bmp) | *.bmp | All files(*.*) | *.* "; 
                 if(saveFile.ShowDialog() == DialogResult.OK)
                 {
-
                     File.WriteAllBytes(saveFile.FileName, bitmapBytes);
                 }
             }
+        }
+
+
+        private void ImportImageButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = DialogResult.Yes;
+            OpenFileDialog image = new OpenFileDialog();
+            int count = images.Count;
+            do
+            {
+                if (image.ShowDialog() == DialogResult.OK)
+                {
+                    byte[] selectedImage = File.ReadAllBytes(image.FileName);
+                    images.Add(selectedImage);
+                    pictureboxes[count].Image = GetImage(images[count]);
+
+                    setColourGroupBox.Visible = false;
+                    ImportedImageGroupBox.Visible = true;
+                    
+                }
+
+                count++;
+
+                if(count < 6)
+                {
+                    result = MessageBox.Show("Select Another?", "Open", MessageBoxButtons.YesNo);
+                }
+
+            } while (result == DialogResult.Yes && count < 6);
+            
         }
 
         private void flipColoursButton_Click(object sender, EventArgs e)
@@ -180,7 +231,7 @@ namespace BitmapGeneratorTool
             blueHigh = int.Parse(blueHighTextBox.Text);
         }
 
-        private Image GetBitmap(byte[] bitmapArray)
+        private Image GetImage(byte[] bitmapArray)
         {
             using (MemoryStream stream = new MemoryStream(bitmapArray))
             {
@@ -207,9 +258,5 @@ namespace BitmapGeneratorTool
             }
         }
 
-        private void bppComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //    bitsPerPixel = int.Parse(bppComboBox.SelectedText);
-        }
     }
 }

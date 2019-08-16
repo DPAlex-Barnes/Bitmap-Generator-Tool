@@ -47,11 +47,25 @@
             this.blueLowTextBox = new System.Windows.Forms.TextBox();
             this.blueHighTextBox = new System.Windows.Forms.TextBox();
             this.HeaderLabel = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.setColourGroupBox = new System.Windows.Forms.GroupBox();
             this.flipColoursButton = new System.Windows.Forms.Button();
-            this.bppComboBox = new System.Windows.Forms.ComboBox();
+            this.ImportImageButton = new System.Windows.Forms.Button();
+            this.ImportedImageOnePictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageGroupBox = new System.Windows.Forms.GroupBox();
+            this.ImportedImageFourPictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageTwoPictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageFivePictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageThreePictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageSixPictureBox = new System.Windows.Forms.PictureBox();
             this.ResolutionGroupBox.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.setColourGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageOnePictureBox)).BeginInit();
+            this.ImportedImageGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFourPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageTwoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFivePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageThreePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageSixPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // DisplayButton
@@ -60,7 +74,7 @@
             this.DisplayButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(255)))));
             this.DisplayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DisplayButton.ForeColor = System.Drawing.Color.Navy;
-            this.DisplayButton.Location = new System.Drawing.Point(397, 315);
+            this.DisplayButton.Location = new System.Drawing.Point(395, 315);
             this.DisplayButton.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.DisplayButton.Name = "DisplayButton";
             this.DisplayButton.Size = new System.Drawing.Size(182, 49);
@@ -95,7 +109,7 @@
             this.ResetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(255)))));
             this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResetButton.ForeColor = System.Drawing.Color.Navy;
-            this.ResetButton.Location = new System.Drawing.Point(31, 315);
+            this.ResetButton.Location = new System.Drawing.Point(29, 315);
             this.ResetButton.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(182, 49);
@@ -115,7 +129,7 @@
             this.ResolutionGroupBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.ResolutionGroupBox.Name = "ResolutionGroupBox";
             this.ResolutionGroupBox.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.ResolutionGroupBox.Size = new System.Drawing.Size(321, 190);
+            this.ResolutionGroupBox.Size = new System.Drawing.Size(321, 212);
             this.ResolutionGroupBox.TabIndex = 4;
             this.ResolutionGroupBox.TabStop = false;
             this.ResolutionGroupBox.Text = "Resolution";
@@ -146,7 +160,7 @@
             this.SaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(255)))));
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.ForeColor = System.Drawing.Color.Navy;
-            this.SaveButton.Location = new System.Drawing.Point(613, 315);
+            this.SaveButton.Location = new System.Drawing.Point(611, 315);
             this.SaveButton.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(182, 49);
@@ -259,32 +273,32 @@
             this.HeaderLabel.AutoSize = true;
             this.HeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HeaderLabel.ForeColor = System.Drawing.Color.Navy;
-            this.HeaderLabel.Location = new System.Drawing.Point(22, 27);
+            this.HeaderLabel.Location = new System.Drawing.Point(39, 27);
             this.HeaderLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.HeaderLabel.Name = "HeaderLabel";
-            this.HeaderLabel.Size = new System.Drawing.Size(407, 37);
+            this.HeaderLabel.Size = new System.Drawing.Size(266, 37);
             this.HeaderLabel.TabIndex = 15;
-            this.HeaderLabel.Text = "8 bit Greyscale Generator";
+            this.HeaderLabel.Text = "8bit Bitmap Tool";
             // 
-            // groupBox1
+            // setColourGroupBox
             // 
-            this.groupBox1.Controls.Add(this.flipColoursButton);
-            this.groupBox1.Controls.Add(this.blueHighTextBox);
-            this.groupBox1.Controls.Add(this.blueLowTextBox);
-            this.groupBox1.Controls.Add(this.greenHighTextBox);
-            this.groupBox1.Controls.Add(this.greenLowTextBox);
-            this.groupBox1.Controls.Add(this.redHighTextBox);
-            this.groupBox1.Controls.Add(this.redLowTextBox);
-            this.groupBox1.Controls.Add(this.blueLabel);
-            this.groupBox1.Controls.Add(this.greenLabel);
-            this.groupBox1.Controls.Add(this.redLabel);
-            this.groupBox1.ForeColor = System.Drawing.Color.Navy;
-            this.groupBox1.Location = new System.Drawing.Point(397, 89);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(398, 190);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Set Colour";
+            this.setColourGroupBox.Controls.Add(this.flipColoursButton);
+            this.setColourGroupBox.Controls.Add(this.blueHighTextBox);
+            this.setColourGroupBox.Controls.Add(this.blueLowTextBox);
+            this.setColourGroupBox.Controls.Add(this.greenHighTextBox);
+            this.setColourGroupBox.Controls.Add(this.greenLowTextBox);
+            this.setColourGroupBox.Controls.Add(this.redHighTextBox);
+            this.setColourGroupBox.Controls.Add(this.redLowTextBox);
+            this.setColourGroupBox.Controls.Add(this.blueLabel);
+            this.setColourGroupBox.Controls.Add(this.greenLabel);
+            this.setColourGroupBox.Controls.Add(this.redLabel);
+            this.setColourGroupBox.ForeColor = System.Drawing.Color.Navy;
+            this.setColourGroupBox.Location = new System.Drawing.Point(397, 89);
+            this.setColourGroupBox.Name = "setColourGroupBox";
+            this.setColourGroupBox.Size = new System.Drawing.Size(398, 212);
+            this.setColourGroupBox.TabIndex = 16;
+            this.setColourGroupBox.TabStop = false;
+            this.setColourGroupBox.Text = "Set Colour";
             // 
             // flipColoursButton
             // 
@@ -302,37 +316,122 @@
             this.flipColoursButton.UseVisualStyleBackColor = true;
             this.flipColoursButton.Click += new System.EventHandler(this.flipColoursButton_Click);
             // 
-            // bppComboBox
+            // ImportImageButton
             // 
-            this.bppComboBox.FormattingEnabled = true;
-            this.bppComboBox.Location = new System.Drawing.Point(453, 29);
-            this.bppComboBox.Name = "bppComboBox";
-            this.bppComboBox.Size = new System.Drawing.Size(342, 38);
-            this.bppComboBox.TabIndex = 17;
-            this.bppComboBox.SelectedIndexChanged += new System.EventHandler(this.bppComboBox_SelectedIndexChanged);
+            this.ImportImageButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(130)))), ((int)(((byte)(230)))));
+            this.ImportImageButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(255)))));
+            this.ImportImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImportImageButton.ForeColor = System.Drawing.Color.Navy;
+            this.ImportImageButton.Location = new System.Drawing.Point(397, 23);
+            this.ImportImageButton.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.ImportImageButton.Name = "ImportImageButton";
+            this.ImportImageButton.Size = new System.Drawing.Size(398, 49);
+            this.ImportImageButton.TabIndex = 17;
+            this.ImportImageButton.Text = "Import Image...";
+            this.ImportImageButton.UseVisualStyleBackColor = true;
+            this.ImportImageButton.Click += new System.EventHandler(this.ImportImageButton_Click);
+            // 
+            // ImportedImageOnePictureBox
+            // 
+            this.ImportedImageOnePictureBox.Location = new System.Drawing.Point(38, 36);
+            this.ImportedImageOnePictureBox.Name = "ImportedImageOnePictureBox";
+            this.ImportedImageOnePictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageOnePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageOnePictureBox.TabIndex = 18;
+            this.ImportedImageOnePictureBox.TabStop = false;
+            // 
+            // ImportedImageGroupBox
+            // 
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageSixPictureBox);
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageThreePictureBox);
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageFivePictureBox);
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageFourPictureBox);
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageOnePictureBox);
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageTwoPictureBox);
+            this.ImportedImageGroupBox.ForeColor = System.Drawing.Color.Navy;
+            this.ImportedImageGroupBox.Location = new System.Drawing.Point(397, 89);
+            this.ImportedImageGroupBox.Name = "ImportedImageGroupBox";
+            this.ImportedImageGroupBox.Size = new System.Drawing.Size(398, 212);
+            this.ImportedImageGroupBox.TabIndex = 18;
+            this.ImportedImageGroupBox.TabStop = false;
+            this.ImportedImageGroupBox.Text = "Imported Image";
+            this.ImportedImageGroupBox.Visible = false;
+            // 
+            // ImportedImageFourPictureBox
+            // 
+            this.ImportedImageFourPictureBox.Location = new System.Drawing.Point(38, 120);
+            this.ImportedImageFourPictureBox.Name = "ImportedImageFourPictureBox";
+            this.ImportedImageFourPictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageFourPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageFourPictureBox.TabIndex = 19;
+            this.ImportedImageFourPictureBox.TabStop = false;
+            // 
+            // ImportedImageTwoPictureBox
+            // 
+            this.ImportedImageTwoPictureBox.Location = new System.Drawing.Point(150, 36);
+            this.ImportedImageTwoPictureBox.Name = "ImportedImageTwoPictureBox";
+            this.ImportedImageTwoPictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageTwoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageTwoPictureBox.TabIndex = 20;
+            this.ImportedImageTwoPictureBox.TabStop = false;
+            // 
+            // ImportedImageFivePictureBox
+            // 
+            this.ImportedImageFivePictureBox.Location = new System.Drawing.Point(150, 120);
+            this.ImportedImageFivePictureBox.Name = "ImportedImageFivePictureBox";
+            this.ImportedImageFivePictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageFivePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageFivePictureBox.TabIndex = 21;
+            this.ImportedImageFivePictureBox.TabStop = false;
+            // 
+            // ImportedImageThreePictureBox
+            // 
+            this.ImportedImageThreePictureBox.Location = new System.Drawing.Point(262, 36);
+            this.ImportedImageThreePictureBox.Name = "ImportedImageThreePictureBox";
+            this.ImportedImageThreePictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageThreePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageThreePictureBox.TabIndex = 22;
+            this.ImportedImageThreePictureBox.TabStop = false;
+            // 
+            // ImportedImageSixPictureBox
+            // 
+            this.ImportedImageSixPictureBox.Location = new System.Drawing.Point(262, 120);
+            this.ImportedImageSixPictureBox.Name = "ImportedImageSixPictureBox";
+            this.ImportedImageSixPictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageSixPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageSixPictureBox.TabIndex = 23;
+            this.ImportedImageSixPictureBox.TabStop = false;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(841, 405);
-            this.Controls.Add(this.bppComboBox);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(825, 394);
+            this.Controls.Add(this.ImportImageButton);
             this.Controls.Add(this.HeaderLabel);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.ResolutionGroupBox);
             this.Controls.Add(this.DisplayButton);
+            this.Controls.Add(this.ImportedImageGroupBox);
+            this.Controls.Add(this.setColourGroupBox);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "mainForm";
-            this.Text = "Bitmap Generator";
+            this.Text = "Bitmap Tool";
             this.ResolutionGroupBox.ResumeLayout(false);
             this.ResolutionGroupBox.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.setColourGroupBox.ResumeLayout(false);
+            this.setColourGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageOnePictureBox)).EndInit();
+            this.ImportedImageGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFourPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageTwoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFivePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageThreePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageSixPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,9 +457,16 @@
         private System.Windows.Forms.TextBox blueLowTextBox;
         private System.Windows.Forms.TextBox blueHighTextBox;
         private System.Windows.Forms.Label HeaderLabel;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox setColourGroupBox;
         private System.Windows.Forms.Button flipColoursButton;
-        private System.Windows.Forms.ComboBox bppComboBox;
+        private System.Windows.Forms.Button ImportImageButton;
+        private System.Windows.Forms.PictureBox ImportedImageOnePictureBox;
+        private System.Windows.Forms.GroupBox ImportedImageGroupBox;
+        private System.Windows.Forms.PictureBox ImportedImageSixPictureBox;
+        private System.Windows.Forms.PictureBox ImportedImageThreePictureBox;
+        private System.Windows.Forms.PictureBox ImportedImageFivePictureBox;
+        private System.Windows.Forms.PictureBox ImportedImageTwoPictureBox;
+        private System.Windows.Forms.PictureBox ImportedImageFourPictureBox;
     }
 }
 
