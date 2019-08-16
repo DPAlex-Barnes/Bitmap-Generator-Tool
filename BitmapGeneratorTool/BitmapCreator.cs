@@ -31,9 +31,9 @@ namespace BitmapGeneratorTool
             int dataByteSize = 3;
 
             byte[] line = GetLine(ImageWidth, dataByteSize, padding, redLeft, redRight, greenLeft, greenRight, blueLeft, blueRight);
-            
+
             // offset is the total byte size of the Bitmap Header and the BitmapInfoHeader
-            int offset = 54;
+            int offset = (int)HEADEROFFSET.headerSize + (int)BITMAPINFOHEADEROFFSET.headerSize;
 
             for (int i = 0; i < ImageHeight; i++)
             {
@@ -78,7 +78,7 @@ namespace BitmapGeneratorTool
 
             int totalHeadersize = dibHeader.Length + bitmapHeader.Length;
 
-            byte[] CompletedBitmapArray = new byte[totalHeadersize + ((ImageWidth * ImageHeight)*4)];
+            byte[] CompletedBitmapArray = new byte[totalHeadersize + ((ImageWidth * ImageHeight) * 4)];
 
             Array.Copy(bitmapHeader, 0, CompletedBitmapArray, 0, bitmapHeader.Length);
 
@@ -112,22 +112,21 @@ namespace BitmapGeneratorTool
         /// </returns>
         private byte[] GenerateBitmapHeader(int dibHeaderSize)
         {
-            byte[] bitmapHeader = new byte[14];
+            byte[] bitmapHeader = new byte[(int)HEADEROFFSET.headerSize];
             int imageSize = ImageWidth * ImageHeight;
             int offset = bitmapHeader.Length + dibHeaderSize;
-            bitmapHeader[0] = 0x42;
-            bitmapHeader[1] = 0x4D;
-            //Total size of bitmap (54 + image size * number of bytes per pixel)
-            Array.Copy(BitConverter.GetBytes((imageSize*4) + offset), 0, bitmapHeader, 2, 4);
+            bitmapHeader[(int)HEADEROFFSET.headerField] = (byte)'B';
+            bitmapHeader[(int)HEADEROFFSET.headerField + 1] = (byte)'M';
+            //Total size of bitmap (offset + image size * number of bytes per pixel)
+            Array.Copy(BitConverter.GetBytes((imageSize * 4) + offset), 0, bitmapHeader, (int)HEADEROFFSET.fileSize, 4);
             // Application specific: unused
-            Array.Copy(BitConverter.GetBytes(0), 0, bitmapHeader, 6, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, bitmapHeader, (int)HEADEROFFSET.reserved1, 2);
             // Application specific: unused
-            Array.Copy(BitConverter.GetBytes(0), 0, bitmapHeader, 8, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, bitmapHeader, (int)HEADEROFFSET.reserved2, 2);
             // Offset, Where the pixel Array starts
-            Array.Copy(BitConverter.GetBytes(offset), 0, bitmapHeader, 10, 4);
+            Array.Copy(BitConverter.GetBytes(offset), 0, bitmapHeader, (int)HEADEROFFSET.startingAddress, 4);
 
             return bitmapHeader;
-
         }
         /// <summary>
         /// Generates a Bitmap 	BITMAPINFOHEADER DIB Header
@@ -140,30 +139,30 @@ namespace BitmapGeneratorTool
         private byte[] GenerateEightBitBitmapDibHeader(int width, int height)
         {
 
-            byte[] dibHeader = new byte[40];
+            byte[] dibHeader = new byte[(int)BITMAPINFOHEADEROFFSET.headerSize];
             // Number of bytes in DIB header
-            Array.Copy(BitConverter.GetBytes(dibHeader.Length), 0, dibHeader, 0, 4);
+            Array.Copy(BitConverter.GetBytes(dibHeader.Length), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.numberOfBytes, 4);
             // Width of pixels
-            Array.Copy(BitConverter.GetBytes(width), 0, dibHeader, 4, 4);
+            Array.Copy(BitConverter.GetBytes(width), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.pixelWidth, 4);
             //height of pixels
-            Array.Copy(BitConverter.GetBytes(height), 0, dibHeader, 8, 4);
+            Array.Copy(BitConverter.GetBytes(height), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.pixelHeight, 4);
             //number of colour planes being used
-            Array.Copy(BitConverter.GetBytes(1), 0, dibHeader, 12, 2);
+            Array.Copy(BitConverter.GetBytes(1), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.colorPlanesUsed, 2);
             // number of bits per pixel
-            Array.Copy(BitConverter.GetBytes(24), 0, dibHeader, 14, 2);
+            Array.Copy(BitConverter.GetBytes(24), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.bitsPerPixel, 2);
             // BI_RGB, no pixel array compression used.
-            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, 16, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.compressionMethod, 4);
             // Size of Raw Bitmap data including padding
-            // Array.Copy(BitConverter.GetBytes((width*height)*4), 0, dibHeader, 18, 4);
-            Array.Copy(BitConverter.GetBytes(16), 0, dibHeader, 20, 4);
+            // Array.Copy(BitConverter.GetBytes((width * height) * 4), 0, dibHeader, 18, 4);
+            Array.Copy(BitConverter.GetBytes(16), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.bitmapDataSize, 4);
             //Print Resolution Horizontal
-            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, 24, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.printResolutionHorizontal, 4);
             //Print Resolution Vertical
-            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, 28, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.printResolutionVertical, 4);
             // Number of Colours in palette
-            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, 32, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.colorsInPalette, 4);
             // Number of Important Colours 0 means all colours are important
-            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, 36, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, dibHeader, (int)BITMAPINFOHEADEROFFSET.importantColors, 4);
 
             return dibHeader;
         }
@@ -212,11 +211,11 @@ namespace BitmapGeneratorTool
             // Colourspace endpoints (NOT USED = EMPTY)
             Array.Copy(new byte[36], 0, dibHeader, 60, 36);
             // UNUSED
-            Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x00 }, 0, dibHeader, 96, 4);
+            Array.Copy(new byte[4], 0, dibHeader, 96, 4);
             // UNUSED
-            Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x00 }, 0, dibHeader, 100, 4);
+            Array.Copy(new byte[4], 0, dibHeader, 100, 4);
             // UNUSED
-            Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x00 }, 0, dibHeader, 104, 4);
+            Array.Copy(new byte[4], 0, dibHeader, 104, 4);
 
             return dibHeader;
         }
@@ -363,6 +362,30 @@ namespace BitmapGeneratorTool
             return line;
         }
 
+        private enum HEADEROFFSET
+        {
+            headerField = 0,
+            fileSize = 2,
+            reserved1 = 6,
+            reserved2 = 8,
+            startingAddress = 10,
+            headerSize = 14
+        }
 
+        private enum BITMAPINFOHEADEROFFSET
+        {
+            numberOfBytes = 0,
+            pixelWidth = 4,
+            pixelHeight = 8,
+            colorPlanesUsed = 12,
+            bitsPerPixel = 14,
+            compressionMethod = 16,
+            bitmapDataSize = 20,
+            printResolutionHorizontal = 24,
+            printResolutionVertical = 28,
+            colorsInPalette = 32,
+            importantColors = 36,
+            headerSize = 40
+        }
     }
 }
