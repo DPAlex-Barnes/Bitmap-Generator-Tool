@@ -52,20 +52,20 @@
             this.ImportImageButton = new System.Windows.Forms.Button();
             this.ImportedImageOnePictureBox = new System.Windows.Forms.PictureBox();
             this.ImportedImageGroupBox = new System.Windows.Forms.GroupBox();
+            this.ImportedImageSixPictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageThreePictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportedImageFivePictureBox = new System.Windows.Forms.PictureBox();
             this.ImportedImageFourPictureBox = new System.Windows.Forms.PictureBox();
             this.ImportedImageTwoPictureBox = new System.Windows.Forms.PictureBox();
-            this.ImportedImageFivePictureBox = new System.Windows.Forms.PictureBox();
-            this.ImportedImageThreePictureBox = new System.Windows.Forms.PictureBox();
-            this.ImportedImageSixPictureBox = new System.Windows.Forms.PictureBox();
             this.ResolutionGroupBox.SuspendLayout();
             this.setColourGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImportedImageOnePictureBox)).BeginInit();
             this.ImportedImageGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageSixPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageThreePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFivePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFourPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImportedImageTwoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFivePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageThreePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageSixPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // DisplayButton
@@ -342,11 +342,11 @@
             // 
             // ImportedImageGroupBox
             // 
+            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageOnePictureBox);
             this.ImportedImageGroupBox.Controls.Add(this.ImportedImageSixPictureBox);
             this.ImportedImageGroupBox.Controls.Add(this.ImportedImageThreePictureBox);
             this.ImportedImageGroupBox.Controls.Add(this.ImportedImageFivePictureBox);
             this.ImportedImageGroupBox.Controls.Add(this.ImportedImageFourPictureBox);
-            this.ImportedImageGroupBox.Controls.Add(this.ImportedImageOnePictureBox);
             this.ImportedImageGroupBox.Controls.Add(this.ImportedImageTwoPictureBox);
             this.ImportedImageGroupBox.ForeColor = System.Drawing.Color.Navy;
             this.ImportedImageGroupBox.Location = new System.Drawing.Point(397, 89);
@@ -356,6 +356,33 @@
             this.ImportedImageGroupBox.TabStop = false;
             this.ImportedImageGroupBox.Text = "Imported Image";
             this.ImportedImageGroupBox.Visible = false;
+            // 
+            // ImportedImageSixPictureBox
+            // 
+            this.ImportedImageSixPictureBox.Location = new System.Drawing.Point(262, 120);
+            this.ImportedImageSixPictureBox.Name = "ImportedImageSixPictureBox";
+            this.ImportedImageSixPictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageSixPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageSixPictureBox.TabIndex = 23;
+            this.ImportedImageSixPictureBox.TabStop = false;
+            // 
+            // ImportedImageThreePictureBox
+            // 
+            this.ImportedImageThreePictureBox.Location = new System.Drawing.Point(262, 36);
+            this.ImportedImageThreePictureBox.Name = "ImportedImageThreePictureBox";
+            this.ImportedImageThreePictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageThreePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageThreePictureBox.TabIndex = 22;
+            this.ImportedImageThreePictureBox.TabStop = false;
+            // 
+            // ImportedImageFivePictureBox
+            // 
+            this.ImportedImageFivePictureBox.Location = new System.Drawing.Point(150, 120);
+            this.ImportedImageFivePictureBox.Name = "ImportedImageFivePictureBox";
+            this.ImportedImageFivePictureBox.Size = new System.Drawing.Size(100, 75);
+            this.ImportedImageFivePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ImportedImageFivePictureBox.TabIndex = 21;
+            this.ImportedImageFivePictureBox.TabStop = false;
             // 
             // ImportedImageFourPictureBox
             // 
@@ -374,33 +401,6 @@
             this.ImportedImageTwoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ImportedImageTwoPictureBox.TabIndex = 20;
             this.ImportedImageTwoPictureBox.TabStop = false;
-            // 
-            // ImportedImageFivePictureBox
-            // 
-            this.ImportedImageFivePictureBox.Location = new System.Drawing.Point(150, 120);
-            this.ImportedImageFivePictureBox.Name = "ImportedImageFivePictureBox";
-            this.ImportedImageFivePictureBox.Size = new System.Drawing.Size(100, 75);
-            this.ImportedImageFivePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ImportedImageFivePictureBox.TabIndex = 21;
-            this.ImportedImageFivePictureBox.TabStop = false;
-            // 
-            // ImportedImageThreePictureBox
-            // 
-            this.ImportedImageThreePictureBox.Location = new System.Drawing.Point(262, 36);
-            this.ImportedImageThreePictureBox.Name = "ImportedImageThreePictureBox";
-            this.ImportedImageThreePictureBox.Size = new System.Drawing.Size(100, 75);
-            this.ImportedImageThreePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ImportedImageThreePictureBox.TabIndex = 22;
-            this.ImportedImageThreePictureBox.TabStop = false;
-            // 
-            // ImportedImageSixPictureBox
-            // 
-            this.ImportedImageSixPictureBox.Location = new System.Drawing.Point(262, 120);
-            this.ImportedImageSixPictureBox.Name = "ImportedImageSixPictureBox";
-            this.ImportedImageSixPictureBox.Size = new System.Drawing.Size(100, 75);
-            this.ImportedImageSixPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ImportedImageSixPictureBox.TabIndex = 23;
-            this.ImportedImageSixPictureBox.TabStop = false;
             // 
             // mainForm
             // 
@@ -427,11 +427,11 @@
             this.setColourGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImportedImageOnePictureBox)).EndInit();
             this.ImportedImageGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageSixPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageThreePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFivePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFourPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImportedImageTwoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageFivePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageThreePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportedImageSixPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

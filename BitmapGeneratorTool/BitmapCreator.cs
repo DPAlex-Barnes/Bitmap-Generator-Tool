@@ -11,7 +11,6 @@ namespace BitmapGeneratorTool
     {
         public int ImageWidth { get; private set; }
         public int ImageHeight { get; private set; }
-
         int red;
         int green;
         int blue;
