@@ -60,7 +60,7 @@ namespace BitmapGeneratorTool
             if (ValidateInput())
             {
                 byte[] bitmapBytes = CreateBitmap(bitsPerPixel);
-                               SaveFileDialog saveFile = new SaveFileDialog();
+                SaveFileDialog saveFile = new SaveFileDialog();
                 saveFile.Filter += "Bitmap Files(*.bmp) | *.bmp | All files(*.*) | *.* "; 
                 if(saveFile.ShowDialog() == DialogResult.OK)
                 {
