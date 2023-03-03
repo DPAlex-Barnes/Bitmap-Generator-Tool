@@ -89,7 +89,7 @@ namespace BitmapGeneratorTool
                     {
                         pictureboxes[0].Size = new Size(100, 75);
                     }
-
+                    //pictureboxes.Sort();
                     pictureboxes[count].Image = GetImage(images[count]);
 
 

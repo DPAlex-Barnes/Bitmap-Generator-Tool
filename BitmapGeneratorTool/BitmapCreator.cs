@@ -325,6 +325,7 @@ namespace BitmapGeneratorTool
                 {
                     red = DecrementColour(redSteps, count, redRight, red);
                 }
+
                 if (green < greenRight)
                 {
                     green = IncrementColour(greenSteps, count, green, greenRight);

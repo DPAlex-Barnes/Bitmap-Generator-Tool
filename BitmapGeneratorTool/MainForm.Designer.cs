@@ -276,9 +276,9 @@
             this.HeaderLabel.Location = new System.Drawing.Point(39, 27);
             this.HeaderLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.HeaderLabel.Name = "HeaderLabel";
-            this.HeaderLabel.Size = new System.Drawing.Size(266, 37);
+            this.HeaderLabel.Size = new System.Drawing.Size(200, 37);
             this.HeaderLabel.TabIndex = 15;
-            this.HeaderLabel.Text = "8bit Bitmap Tool";
+            this.HeaderLabel.Text = "Bitmap Tool";
             // 
             // setColourGroupBox
             // 
@@ -414,8 +414,8 @@
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.ResolutionGroupBox);
             this.Controls.Add(this.DisplayButton);
-            this.Controls.Add(this.ImportedImageGroupBox);
             this.Controls.Add(this.setColourGroupBox);
+            this.Controls.Add(this.ImportedImageGroupBox);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
