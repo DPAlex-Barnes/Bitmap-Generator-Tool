@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace BitmapGeneratorTool
 {
@@ -29,7 +33,7 @@ namespace BitmapGeneratorTool
             byte[] bitmapBytes = EightBPCBitmapTemplate();
             int dataByteSize = 3;
 
-            byte[] line = GetLine(ImageWidth, dataByteSize, padding, redLeft, redRight, greenLeft, greenRight, blueLeft, blueRight);
+            byte[] line = GetVerticalGradientLine(ImageWidth, dataByteSize, padding, redLeft, redRight, greenLeft, greenRight, blueLeft, blueRight);
 
             // offset is the total byte size of the Bitmap Header and the BitmapInfoHeader
             int offset = (int)HEADEROFFSET.headerSize + (int)BITMAPINFOHEADEROFFSET.headerSize;
@@ -43,6 +47,83 @@ namespace BitmapGeneratorTool
 
             return bitmapBytes;
         }
+        public byte[] GenerateEightBitHorizontalGradiant(int redLow, int redHigh, int greenLow, int greenHigh, int blueLow, int blueHigh)
+        {
+            int padding = ImageWidth % 4;
+            byte[] bitmapBytes = EightBPCBitmapTemplate();
+            int dataByteSize = 3;
+
+            int red = redLow;
+            int green = greenLow;
+            int blue = blueLow;
+
+            int steps = GetSteps(ImageHeight, redLow, redHigh);
+            // offset is the total byte size of the Bitmap Header and the BitmapInfoHeader
+            int offset = (int)HEADEROFFSET.headerSize + (int)BITMAPINFOHEADEROFFSET.headerSize;
+
+            for (int i = 0; i < ImageHeight; i++)
+            {
+                byte[] line = GetSolidLine(ImageWidth, dataByteSize, padding, red, green, blue);
+                Array.Copy(line, 0, bitmapBytes, offset, line.Length);
+                offset += line.Length;
+
+                if(red < redHigh)
+                {
+                    red = IncrementColour(steps, i, red, redHigh);
+                }
+                else if (red > redHigh)
+                {
+                    red = DecrementColour(steps, i, redHigh, red);
+                }
+                if (green < greenHigh)
+                {
+                    green = IncrementColour(steps, i, green, redHigh);
+                }
+                else if (green > redHigh)
+                {
+                    green = DecrementColour(steps, i, greenHigh, green);
+                }
+                if (blue < blueHigh)
+                {
+                    blue = IncrementColour(steps, i, blue, redHigh);
+                }
+                else if (blue > blueHigh)
+                {
+                    blue = DecrementColour(steps, i, blueHigh, blue);
+                }
+            }
+
+            return bitmapBytes;
+        }
+
+        // cop out, using linear gradient brush to generate a corner to corner gradient rather than using pixel based mathematics :(
+        public byte[] GenerateEightBitDiagonalGradiant(int redLow, int redHigh, int greenLow, int greenHigh, int blueLow, int blueHigh, string direction )
+        {
+            var image = new Bitmap(ImageWidth, ImageHeight);
+            Graphics g = Graphics.FromImage(image);
+            if (direction.Equals("TLBR"))
+            {
+                LinearGradientBrush gradientBrush = new LinearGradientBrush(
+                new Point(0, 0),
+                new Point(ImageWidth, ImageHeight),
+                Color.FromArgb(255, redLow, greenLow, blueLow),
+                Color.FromArgb(255, redHigh, greenHigh, blueHigh));
+                g.FillRectangle(gradientBrush, new Rectangle(0, 0, ImageWidth, ImageHeight));
+            }
+            else
+            {
+                LinearGradientBrush gradientBrush = new LinearGradientBrush(
+                new Point(0, ImageHeight),
+                new Point(ImageWidth, 0),
+                Color.FromArgb(255, redLow, greenLow, blueLow),
+                Color.FromArgb(255, redHigh, greenHigh, blueHigh));
+                g.FillRectangle(gradientBrush, new Rectangle(0, 0, ImageWidth, ImageHeight));
+            }
+            
+
+            return ToByteArray(image, ImageFormat.Bmp);
+        }
+
 
         public byte[] GenerateTenBitVerticalGradient(int redLeft, int redRight, int greenLeft, int greenRight, int blueLeft, int blueRight, int alphaLeft, int alphaRight)
         {
@@ -50,7 +131,7 @@ namespace BitmapGeneratorTool
             byte[] bitmapBytes = ThirtyTwoBPPBitmapTemplate();
             int dataByteSize = 4;
 
-            byte[] line = GetLine(ImageWidth, dataByteSize, padding, redLeft, redRight, greenLeft, greenRight, blueLeft, blueRight);
+            byte[] line = GetVerticalGradientLine(ImageWidth, dataByteSize, padding, redLeft, redRight, greenLeft, greenRight, blueLeft, blueRight);
 
             int offset = 122;
 
@@ -298,7 +379,22 @@ namespace BitmapGeneratorTool
             }
         }
 
-        private byte[] GetLine(int imageWidth, int dataByteSize, int padding, int redLeft, int redRight, int greenLeft, int greenRight, int blueLeft, int blueRight, int alphaLeft = 255, int alphaRight = 255)
+        private byte[] GetSolidLine(int imageWidth, int dataByteSize, int padding, int red, int green, int blue)
+        {
+            byte[] line = new byte[(ImageWidth * dataByteSize) + padding];
+            int count = 0;
+
+            byte[] colour = { (byte)blue, (byte)green, (byte)red, (byte)alpha };
+
+            for (int i = 0; i < line.Length - dataByteSize; i += dataByteSize)
+            {
+                Array.Copy(colour, 0, line, i, dataByteSize);
+                count++;
+            }
+            return line;
+        }
+
+        private byte[] GetVerticalGradientLine(int imageWidth, int dataByteSize, int padding, int redLeft, int redRight, int greenLeft, int greenRight, int blueLeft, int blueRight, int alphaLeft = 255, int alphaRight = 255)
         {
             byte[] line = new byte[(ImageWidth * dataByteSize) + padding];
 
@@ -360,6 +456,15 @@ namespace BitmapGeneratorTool
 
 
             return line;
+        }
+
+        private byte[] ToByteArray(Image image, ImageFormat format)
+        {
+            using(MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, format);
+                return ms.ToArray();
+            }
         }
 
         private enum HEADEROFFSET

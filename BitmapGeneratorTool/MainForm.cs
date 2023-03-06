@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -143,6 +144,7 @@ namespace BitmapGeneratorTool
             blueLowTextBox.Text = "0";
             blueHighTextBox.Text = "255";
             ImportedImageGroupBox.Visible = false;
+            GradiantTypeComboBox.SelectedIndex = (int)GRADIENTDIRECTION.HORIZONTAL;
             ImportImageButton.Enabled = true;
             setColourGroupBox.Visible = true;
             SaveButton.Enabled = true;
@@ -160,6 +162,13 @@ namespace BitmapGeneratorTool
             {
                 return screen1.Bounds.Y.CompareTo(screen2.Bounds.Y);
             });
+
+            for(int i=0; i < screens.Length; i++)
+            {
+                ScreensComboBox.Items.Add(i+1);
+            }
+
+            ScreensComboBox.SelectedIndex = 0;
         }
 
         private void DisplayImages()
@@ -202,14 +211,26 @@ namespace BitmapGeneratorTool
             Image picture = GetImage(bitmapBytes);
             forms = new List<GeneratedBitmapForm>();
 
-            for (int i = 0; i < screens.Length; i++)
+            if(ScreensComboBox.SelectedIndex == 0)
+            {
+                for (int i = 0; i < screens.Length; i++)
+                {
+                    forms.Add(new GeneratedBitmapForm(picture, imageWidth, imageHeight));
+                    //GeneratedBitmapForm bitmapWindow = new GeneratedBitmapForm(picture, imageWidth, imageHeight);
+                    forms[i].Location = screens[i].Bounds.Location;
+                    forms[i].Show();
+                    Console.WriteLine($"Form:{screens[i].DeviceName}, {forms[i].Location} ");
+                }
+            }
+            else
             {
                 forms.Add(new GeneratedBitmapForm(picture, imageWidth, imageHeight));
                 //GeneratedBitmapForm bitmapWindow = new GeneratedBitmapForm(picture, imageWidth, imageHeight);
-                forms[i].Location = screens[i].Bounds.Location;
-                forms[i].Show();
-                Console.WriteLine($"Form:{screens[i].DeviceName}, {forms[i].Location} ");
+                forms[0].Location = screens[ScreensComboBox.SelectedIndex - 1].Bounds.Location;
+                forms[0].Show();
+                Console.WriteLine($"Form:{screens[ScreensComboBox.SelectedIndex - 1].DeviceName}, {forms[0].Location} ");
             }
+            
         }
 
         private bool ValidateInput()
@@ -292,15 +313,32 @@ namespace BitmapGeneratorTool
         private byte[] CreateBitmap(int bits)
         {
             BitmapCreator bitmapCreator = new BitmapCreator(imageWidth, imageHeight);
-
             if(bits == 24)
             {
-                return bitmapCreator.GenerateEightBitVerticalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
+                switch (GradiantTypeComboBox.SelectedIndex)
+                {
+                    
+                    case (int)GRADIENTDIRECTION.HORIZONTAL:
+                        return bitmapCreator.GenerateEightBitVerticalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
+                    case (int)GRADIENTDIRECTION.VERTICAL:
+                        return bitmapCreator.GenerateEightBitHorizontalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
+                    case (int)GRADIENTDIRECTION.DIAGONALBLTR:
+                        return bitmapCreator.GenerateEightBitDiagonalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, "BLTR");
+                    case (int)GRADIENTDIRECTION.DIAGONALTLBR:
+                        return bitmapCreator.GenerateEightBitDiagonalGradiant(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, "TLBR");
+                    default:
+                        return new byte[256];
+                }
 
             }
             else if (bits == 32)
             {
-                return bitmapCreator.GenerateTenBitVerticalGradient(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, 255, 255);
+                if (GradiantTypeComboBox.SelectedIndex == (int)GRADIENTDIRECTION.HORIZONTAL)
+                    return bitmapCreator.GenerateTenBitVerticalGradient(redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh, 255, 255);
+                else if (GradiantTypeComboBox.SelectedIndex == (int)GRADIENTDIRECTION.VERTICAL)
+                    return new byte[256];
+                else
+                    return new byte[256];
             }
             else
             {
@@ -308,5 +346,26 @@ namespace BitmapGeneratorTool
             }
         }
 
+        private enum GRADIENTDIRECTION
+        {
+            HORIZONTAL,
+            VERTICAL,
+            DIAGONALTLBR,
+            DIAGONALBLTR,
+        }
+
+        private void ScreensComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ScreensComboBox.SelectedIndex > 0)
+            {
+                widthValueTextBox.Text = screens[ScreensComboBox.SelectedIndex - 1].Bounds.Width.ToString();
+                heightValueTextBox.Text = screens[ScreensComboBox.SelectedIndex - 1].Bounds.Height.ToString();
+            }
+            else
+            {
+                widthValueTextBox.Text = Screen.PrimaryScreen.Bounds.Width.ToString();
+                heightValueTextBox.Text = Screen.PrimaryScreen.Bounds.Height.ToString();
+            }
+        }
     }
 }

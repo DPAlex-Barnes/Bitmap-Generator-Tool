@@ -34,6 +34,8 @@
             this.heightValueTextBox = new System.Windows.Forms.TextBox();
             this.ResetButton = new System.Windows.Forms.Button();
             this.ResolutionGroupBox = new System.Windows.Forms.GroupBox();
+            this.DisplayLabel = new System.Windows.Forms.Label();
+            this.ScreensComboBox = new System.Windows.Forms.ComboBox();
             this.heightLabel = new System.Windows.Forms.Label();
             this.widthLabel = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -48,6 +50,7 @@
             this.blueHighTextBox = new System.Windows.Forms.TextBox();
             this.HeaderLabel = new System.Windows.Forms.Label();
             this.setColourGroupBox = new System.Windows.Forms.GroupBox();
+            this.GradiantTypeComboBox = new System.Windows.Forms.ComboBox();
             this.flipColoursButton = new System.Windows.Forms.Button();
             this.ImportImageButton = new System.Windows.Forms.Button();
             this.ImportedImageOnePictureBox = new System.Windows.Forms.PictureBox();
@@ -86,7 +89,7 @@
             // widthValueTextBox
             // 
             this.widthValueTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.widthValueTextBox.Location = new System.Drawing.Point(138, 65);
+            this.widthValueTextBox.Location = new System.Drawing.Point(138, 97);
             this.widthValueTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.widthValueTextBox.Name = "widthValueTextBox";
             this.widthValueTextBox.Size = new System.Drawing.Size(138, 35);
@@ -96,7 +99,7 @@
             // heightValueTextBox
             // 
             this.heightValueTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.heightValueTextBox.Location = new System.Drawing.Point(138, 122);
+            this.heightValueTextBox.Location = new System.Drawing.Point(138, 154);
             this.heightValueTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.heightValueTextBox.Name = "heightValueTextBox";
             this.heightValueTextBox.Size = new System.Drawing.Size(138, 35);
@@ -120,6 +123,8 @@
             // 
             // ResolutionGroupBox
             // 
+            this.ResolutionGroupBox.Controls.Add(this.DisplayLabel);
+            this.ResolutionGroupBox.Controls.Add(this.ScreensComboBox);
             this.ResolutionGroupBox.Controls.Add(this.heightLabel);
             this.ResolutionGroupBox.Controls.Add(this.widthLabel);
             this.ResolutionGroupBox.Controls.Add(this.widthValueTextBox);
@@ -134,10 +139,32 @@
             this.ResolutionGroupBox.TabStop = false;
             this.ResolutionGroupBox.Text = "Resolution";
             // 
+            // DisplayLabel
+            // 
+            this.DisplayLabel.AutoSize = true;
+            this.DisplayLabel.Location = new System.Drawing.Point(36, 37);
+            this.DisplayLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.DisplayLabel.Name = "DisplayLabel";
+            this.DisplayLabel.Size = new System.Drawing.Size(85, 30);
+            this.DisplayLabel.TabIndex = 20;
+            this.DisplayLabel.Text = "Display:";
+            // 
+            // ScreensComboBox
+            // 
+            this.ScreensComboBox.ForeColor = System.Drawing.Color.Navy;
+            this.ScreensComboBox.FormattingEnabled = true;
+            this.ScreensComboBox.Items.AddRange(new object[] {
+            "All"});
+            this.ScreensComboBox.Location = new System.Drawing.Point(165, 34);
+            this.ScreensComboBox.Name = "ScreensComboBox";
+            this.ScreensComboBox.Size = new System.Drawing.Size(111, 38);
+            this.ScreensComboBox.TabIndex = 19;
+            this.ScreensComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreensComboBox_SelectedIndexChanged);
+            // 
             // heightLabel
             // 
             this.heightLabel.AutoSize = true;
-            this.heightLabel.Location = new System.Drawing.Point(30, 124);
+            this.heightLabel.Location = new System.Drawing.Point(30, 156);
             this.heightLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.heightLabel.Name = "heightLabel";
             this.heightLabel.Size = new System.Drawing.Size(80, 30);
@@ -147,7 +174,7 @@
             // widthLabel
             // 
             this.widthLabel.AutoSize = true;
-            this.widthLabel.Location = new System.Drawing.Point(36, 67);
+            this.widthLabel.Location = new System.Drawing.Point(36, 99);
             this.widthLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.widthLabel.Name = "widthLabel";
             this.widthLabel.Size = new System.Drawing.Size(74, 30);
@@ -173,7 +200,7 @@
             // 
             this.redLabel.AutoSize = true;
             this.redLabel.ForeColor = System.Drawing.Color.Red;
-            this.redLabel.Location = new System.Drawing.Point(68, 45);
+            this.redLabel.Location = new System.Drawing.Point(68, 83);
             this.redLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.redLabel.Name = "redLabel";
             this.redLabel.Size = new System.Drawing.Size(48, 30);
@@ -184,7 +211,7 @@
             // 
             this.greenLabel.AutoSize = true;
             this.greenLabel.ForeColor = System.Drawing.Color.Green;
-            this.greenLabel.Location = new System.Drawing.Point(164, 45);
+            this.greenLabel.Location = new System.Drawing.Point(164, 83);
             this.greenLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.greenLabel.Name = "greenLabel";
             this.greenLabel.Size = new System.Drawing.Size(68, 30);
@@ -195,7 +222,7 @@
             // 
             this.blueLabel.AutoSize = true;
             this.blueLabel.ForeColor = System.Drawing.Color.Blue;
-            this.blueLabel.Location = new System.Drawing.Point(282, 45);
+            this.blueLabel.Location = new System.Drawing.Point(282, 83);
             this.blueLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.blueLabel.Name = "blueLabel";
             this.blueLabel.Size = new System.Drawing.Size(53, 30);
@@ -205,7 +232,7 @@
             // redLowTextBox
             // 
             this.redLowTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.redLowTextBox.Location = new System.Drawing.Point(56, 81);
+            this.redLowTextBox.Location = new System.Drawing.Point(56, 119);
             this.redLowTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.redLowTextBox.MaxLength = 10;
             this.redLowTextBox.Name = "redLowTextBox";
@@ -216,7 +243,7 @@
             // redHighTextBox
             // 
             this.redHighTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.redHighTextBox.Location = new System.Drawing.Point(56, 130);
+            this.redHighTextBox.Location = new System.Drawing.Point(56, 168);
             this.redHighTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.redHighTextBox.MaxLength = 10;
             this.redHighTextBox.Name = "redHighTextBox";
@@ -227,7 +254,7 @@
             // greenLowTextBox
             // 
             this.greenLowTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.greenLowTextBox.Location = new System.Drawing.Point(162, 81);
+            this.greenLowTextBox.Location = new System.Drawing.Point(162, 119);
             this.greenLowTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.greenLowTextBox.MaxLength = 10;
             this.greenLowTextBox.Name = "greenLowTextBox";
@@ -238,7 +265,7 @@
             // greenHighTextBox
             // 
             this.greenHighTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.greenHighTextBox.Location = new System.Drawing.Point(162, 130);
+            this.greenHighTextBox.Location = new System.Drawing.Point(162, 168);
             this.greenHighTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.greenHighTextBox.MaxLength = 10;
             this.greenHighTextBox.Name = "greenHighTextBox";
@@ -249,7 +276,7 @@
             // blueLowTextBox
             // 
             this.blueLowTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.blueLowTextBox.Location = new System.Drawing.Point(272, 81);
+            this.blueLowTextBox.Location = new System.Drawing.Point(272, 119);
             this.blueLowTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.blueLowTextBox.MaxLength = 10;
             this.blueLowTextBox.Name = "blueLowTextBox";
@@ -260,7 +287,7 @@
             // blueHighTextBox
             // 
             this.blueHighTextBox.ForeColor = System.Drawing.Color.Navy;
-            this.blueHighTextBox.Location = new System.Drawing.Point(272, 130);
+            this.blueHighTextBox.Location = new System.Drawing.Point(272, 168);
             this.blueHighTextBox.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.blueHighTextBox.MaxLength = 10;
             this.blueHighTextBox.Name = "blueHighTextBox";
@@ -273,7 +300,7 @@
             this.HeaderLabel.AutoSize = true;
             this.HeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HeaderLabel.ForeColor = System.Drawing.Color.Navy;
-            this.HeaderLabel.Location = new System.Drawing.Point(39, 27);
+            this.HeaderLabel.Location = new System.Drawing.Point(90, 27);
             this.HeaderLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.HeaderLabel.Name = "HeaderLabel";
             this.HeaderLabel.Size = new System.Drawing.Size(200, 37);
@@ -282,6 +309,7 @@
             // 
             // setColourGroupBox
             // 
+            this.setColourGroupBox.Controls.Add(this.GradiantTypeComboBox);
             this.setColourGroupBox.Controls.Add(this.flipColoursButton);
             this.setColourGroupBox.Controls.Add(this.blueHighTextBox);
             this.setColourGroupBox.Controls.Add(this.blueLowTextBox);
@@ -300,6 +328,20 @@
             this.setColourGroupBox.TabStop = false;
             this.setColourGroupBox.Text = "Set Colour";
             // 
+            // GradiantTypeComboBox
+            // 
+            this.GradiantTypeComboBox.ForeColor = System.Drawing.Color.Navy;
+            this.GradiantTypeComboBox.FormattingEnabled = true;
+            this.GradiantTypeComboBox.Items.AddRange(new object[] {
+            "Horizontal",
+            "Vertical",
+            "Diagonal(TL/BR)",
+            "Diagonal(BL/TR)"});
+            this.GradiantTypeComboBox.Location = new System.Drawing.Point(25, 34);
+            this.GradiantTypeComboBox.Name = "GradiantTypeComboBox";
+            this.GradiantTypeComboBox.Size = new System.Drawing.Size(207, 38);
+            this.GradiantTypeComboBox.TabIndex = 18;
+            // 
             // flipColoursButton
             // 
             this.flipColoursButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(130)))), ((int)(((byte)(230)))));
@@ -307,7 +349,7 @@
             this.flipColoursButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.flipColoursButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flipColoursButton.ForeColor = System.Drawing.Color.Navy;
-            this.flipColoursButton.Location = new System.Drawing.Point(352, 108);
+            this.flipColoursButton.Location = new System.Drawing.Point(352, 146);
             this.flipColoursButton.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.flipColoursButton.Name = "flipColoursButton";
             this.flipColoursButton.Size = new System.Drawing.Size(37, 29);
@@ -467,6 +509,9 @@
         private System.Windows.Forms.PictureBox ImportedImageFivePictureBox;
         private System.Windows.Forms.PictureBox ImportedImageTwoPictureBox;
         private System.Windows.Forms.PictureBox ImportedImageFourPictureBox;
+        private System.Windows.Forms.ComboBox GradiantTypeComboBox;
+        private System.Windows.Forms.ComboBox ScreensComboBox;
+        private System.Windows.Forms.Label DisplayLabel;
     }
 }
 
